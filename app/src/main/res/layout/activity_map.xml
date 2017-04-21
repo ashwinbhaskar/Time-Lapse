@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+    <import type="android.view.View" />
+
+    <variable name="viewModel"
+        type="com.timelapse.ashwinxd.timelapse.viewmodel.MapActivityViewModel" />
+
+  </data>
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="match_parent" android:layout_height="match_parent"
+      android:orientation="vertical">
+    <fragment class="com.google.android.gms.maps.SupportMapFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/map"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:clickable="true" />
+
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:layout_margin="16dp">
+
+      <Button android:id="@+id/play" android:layout_width="wrap_content"
+          android:layout_height="wrap_content" android:onClick="@{() -> viewModel.play()}"
+          style="@style/Raised.Button.Red"
+          android:visibility="@{viewModel.showPlay ? View.VISIBLE : View.GONE}"
+          android:padding="16dp" android:text="@{viewModel.playLabel}" />
+      <Button android:id="@+id/pause" android:layout_width="wrap_content"
+          android:layout_height="wrap_content" android:onClick="@{() -> viewModel.pause()}"
+          style="@style/Raised.Button.White"
+          android:padding="16dp" android:text="@{viewModel.pauseLabel}"
+      android:visibility="@{viewModel.showPlay ? View.GONE : View.VISIBLE}"/>
+
+      <SeekBar android:id="@+id/rangeSeekbar1" android:layout_width="match_parent"
+          android:layout_height="wrap_content" android:layout_marginLeft="16dp"
+          android:layout_toRightOf="@+id/play" android:foregroundGravity="center_vertical" />
+
+    </RelativeLayout>
+
+    <RelativeLayout android:id="@+id/loading" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:background="@color/transparentWhite"
+        android:clickable="true"
+        android:gravity="center"
+        android:visibility="@{viewModel.showLoading ? View.VISIBLE : View.GONE}">
+      <ProgressBar android:id="@+id/prograss_bar" android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:indeterminate="true" />
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+          android:layout_toRightOf="@+id/prograss_bar" android:layout_marginLeft="16dp"
+          android:text="@{viewModel.loadingMessage}"
+          android:fontFamily="sans-serif" android:textColor="#2e2e2e" android:textSize="18sp" />
+    </RelativeLayout>
+  </RelativeLayout>
+</layout>
